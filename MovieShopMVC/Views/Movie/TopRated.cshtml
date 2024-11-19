@@ -1,0 +1,23 @@
+<h1>
+    Top Rated Movies
+</h1>
+@model List<ApplicationCore.Models.MovieCardResponseModel> 
+
+@{
+    ViewData["Title"]="Movie Home Page";
+}
+
+<div class="rounded">
+    <div class="container-fluid">
+        <div class="row">
+            @foreach(var movie in Model){
+                <div>
+                    @* call the partial view _MovieCard.cshtml*@
+                    <partial name="_MovieCard" model="movie"/>
+                </div>
+            }
+       <div>
+
+    </div>
+</div>
+
