@@ -1,9 +1,9 @@
-namespace ApplicationCore.Entities
+﻿namespace ApplicationCore.Entities
 {
     public class Movie // Entity(实体) => DB table
     {
-        public int Id{get;set;}
-        public string Title{get;set;}
+        public int Id { get; set; }
+        public string Title { get; set; }=string.Empty;
         public string Overview { get; set; }
         public string Tagline { get; set; }
         public decimal? Budget { get; set; }
@@ -22,10 +22,13 @@ namespace ApplicationCore.Entities
         public string CreatedBy { get; set; }
         public decimal? Rating { get; set; }
 
-        //导航属性
-        public ICollection<MovieGenre> MovieGenre{get;set;}
-        
-
-
+        // Navigation property. => 1 movie can have multiple trailers.
+        public ICollection<Trailer> Trailers { get; set; }
+        public ICollection<MovieGenre> MovieGenres { get; set; }
+        public ICollection<MovieCast> MovieCasts { get; set; }
+        public ICollection<Review> Reviews { get; set; }
+        public ICollection<Purchase> Purchases { get; set; }
+        public ICollection<MovieCrew> Crews { get; set; }
+        public ICollection<Favorite> Favorites { get; set; }
     }
 }
