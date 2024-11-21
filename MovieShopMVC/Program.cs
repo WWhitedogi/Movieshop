@@ -4,6 +4,7 @@ using ApplicationCore.RepositoryInterface;
 using ApplicationCore.ServiceInterface;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 // AddTransient: 每次请求时创建一个新的实例
@@ -23,6 +26,15 @@ builder.Services.AddDbContext<MovieShopDbContext>(
     options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("MovieShopDbContext")
     )
+);
+//cookie based authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddCookie(options=>
+{
+    options.Cookie.Name="MovieShopAuthCookie";
+    options.ExpireTimeSpan=TimeSpan.FromHours(1);
+    options.LoginPath="/account/login";
+}
 );
 
 var app = builder.Build();
@@ -39,6 +51,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
  
+//Middleware
 app.UseAuthentication();
 app.UseAuthorization();
 

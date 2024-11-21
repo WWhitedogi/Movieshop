@@ -8,12 +8,10 @@ namespace ApplicationCore.Models
         [EmailAddress]
         [StringLength(50)]
         public string Email{get;set;}
-
-        [Required]
-        [StringLength(100)]
-        [RegularExpression()]
         public string Password{get;set;}
-        public string name{get;set;}
+        public string FirstName{get;set;}
+        public string LastName{get;set;}
+        public DateTime DateOfBirth{get;set;}
         
     }
 }

@@ -1,11 +1,10 @@
-using System.Threading.Tasks;
-using ApplicationCore.Entities; // 添加引用，解决 User 类型未找到的问题
+using ApplicationCore.Entities;
 
 namespace ApplicationCore.RepositoryInterface
 {
-    public interface IUserRepository
+    public interface IUserRepository : IAsyncRepository<User>
     {
-        // 根据 Email 获取用户
+        // check if user exists in the db 
         Task<User> GetUserByEmail(string email);
     }
 }
